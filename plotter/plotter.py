@@ -1,18 +1,17 @@
-import sys
-import argparse
-import json
 from matplotlib import pyplot as plt
-
+import argparse
+import sys
+import json
 from datetime import datetime
 
 
-def read_from_json(path, timestamp, values, fro=0, to=99999):
+def read_from_json(path, timestamp, values, fro="0", to="99999"):
     charts = []
-    with open(path, "r") as file:
-        data = json.load(file)
+    with open(path, "r") as file_handle:
+        data = json.load(file_handle)
         for value in values:
-            chart_keys = []
-            chart_values = []
+            return_data1 = []
+            return_data2 = []
             for row in data:
                 try:
                     if datetime.fromisoformat(
@@ -22,19 +21,19 @@ def read_from_json(path, timestamp, values, fro=0, to=99999):
                     ) < datetime.fromisoformat(
                         to
                     ):
-                        measurement = (row[timestamp], row[value])
-                        chart_keys.append(measurement[0])
-                        chart_values.append(measurement[1])
+                        measurment = (row[timestamp], row[value])
+                        return_data1.append(measurment[0])
+                        return_data2.append(measurment[1])
                 except KeyError:
                     pass
-            charts.append((chart_keys, chart_values))
+            charts.append((return_data1, return_data2))
     return charts
 
 
 def generate_plot(data):
-    for i, plot_data in enumerate(data):
-        keys = plot_data[i][0]
-        values = plot_data[i][1]
+    for i, plot in enumerate(data):
+        keys = data[i][0]
+        values = data[i][1]
         plt.plot(keys, values)
     plt.show()
 
@@ -43,9 +42,13 @@ def main(arguments):
     parser = argparse.ArgumentParser()
     parser.add_argument("path")
     parser.add_argument("--timestamp", default="timestamp")
-    parser.add_argument("--value", default=["value"], nargs="+")
-    parser.add_argument("--fro")
-    parser.add_argument("--to")
+    parser.add_argument(
+        "--value",
+        default=["value"],
+        nargs="+",
+    )
+    parser.add_argument("--fro", default="1980-01-01")
+    parser.add_argument("--to", default="9999-12-12")
     args = parser.parse_args(arguments[1:])
     if args.path:
         data = read_from_json(
