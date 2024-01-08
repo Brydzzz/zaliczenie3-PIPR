@@ -4,6 +4,7 @@ import csv
 from collections import Counter
 import json
 from rich.prompt import Confirm
+import os.path
 
 
 def get_column_names(filename):
@@ -95,23 +96,28 @@ def main(arguments):
     parser.add_argument("-f", action="store_true", help="overwrite .json file")
 
     args = parser.parse_args(arguments[1:])
-    print(args)
     files = args.files
     for csv_file in files:
         if args.columns:
+            print("Columns")
             print(get_column_names(csv_file))
         if args.rows:
+            print("Rows")
             print(get_number_of_rows(csv_file))
         if args.unique:
+            print("Unique")
             print(get_unique_values(csv_file))
         if args.count:
+            print("Count")
             print(count_values(csv_file))
-    if not args.f:
-        answer = Confirm.ask(f"The file: {args.out} already exists, overwrite")
-        if not answer:
-            return
-
     if args.out:
+        if os.path.isfile(args.out):
+            if not args.f:
+                answer = Confirm.ask(
+                    f"The file: {args.out} already exists, overwrite"
+                )
+                if not answer:
+                    return
         save_to_json(
             args.files,
             args.out,

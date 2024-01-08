@@ -1,0 +1,28 @@
+{
+    "file.csv": {
+        "columns": [
+            "ID",
+            "value",
+            "info"
+        ],
+        "rows": 99,
+        "unique": {
+            "ID": 99,
+            "value": 45,
+            "info": 4
+        }
+    },
+    "other.csv": {
+        "columns": [
+            "key",
+            "value",
+            "timestamp"
+        ],
+        "rows": 33,
+        "unique": {
+            "key": 33,
+            "value": 22,
+            "timestamp": 33
+        }
+    }
+}
