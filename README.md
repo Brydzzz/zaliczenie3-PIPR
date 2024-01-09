@@ -17,3 +17,9 @@
 [Polecenie](/problems/PIPR-21Z-zal3.md)
 
 [Kod](./todo/)
+
+### Movies
+
+[Polecenie](/problems/zaliczenie_3.md)
+
+[Kod](./movies_search_engine/)
