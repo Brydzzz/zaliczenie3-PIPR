@@ -55,7 +55,7 @@ def main(arguments):
             get_duplicates(args.path, titles, duplicates)
         duplicates_formatted = "\n".join(duplicates)
         duplicates_msg = (
-            f"You have duplicates of this movies: {duplicates_formatted}"
+            f"You have duplicates of these movies: {duplicates_formatted}"
         )
         no_duplicates_msg = "There are no duplicates"
         print(f"{duplicates_msg if duplicates else no_duplicates_msg}")
